@@ -6,41 +6,44 @@
 #include <ev++.h>
 #include <iostream>
 
+namespace idk::pool {
+    class Worker {
+    public:
+        explicit Worker();
 
-class Worker {
-public:
-    explicit Worker() = default;
+        explicit Worker(const Worker&) = delete;
 
-    explicit Worker(const Worker&) = delete;
+        explicit Worker(const Worker&&) = delete;
 
-    explicit Worker(const Worker&&) = delete;
+        Worker& operator=(const Worker&) = delete;
 
-    Worker& operator=(const Worker&) = delete;
+        Worker& operator=(const Worker&&) = delete;
 
-    Worker& operator=(const Worker&&) = delete;
+        void run();
 
-    void run();
+        void join();
 
-    void join();
+        void addConnection(int clientSocketFD);
 
-    void addConnection(int clientSocketFD);
+        virtual ~Worker() = default;
 
-    virtual ~Worker() = default;
+        void workerFunction();
 
-    void workerFunction();
+        size_t currentConnections();
 
-private:
-    ev::dynamic_loop loop;
+    private:
+        size_t connectionsHandling = 0;
 
-    std::unique_ptr<std::thread> thread;
+        ev::dynamic_loop loop;
+        ev::async notifier;
+        ev::async connectionGone;
 
-    ev::timer timer;
+        std::unique_ptr<std::thread> thread;
 
-    void on_timer()
-    {
-        return;
-    }
-};
+        void notifyCB(ev::async& notifier, int revents);
 
+        void connectionGoneCB(ev::async& notifier, int revents);
+    };
+}
 
 #endif //IDK_WORKER_HPP

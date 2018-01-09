@@ -1,39 +1,42 @@
 #ifndef IDK_SERVER_HPP
 #define IDK_SERVER_HPP
 
-
+#include "Config.hpp"
 #include "WorkerPool.hpp"
 #include <ev++.h>
 
-class Server {
-public:
-    explicit Server();
+namespace idk {
+    class Server {
+    public:
+        explicit Server();
 
-    Server(const Server&) = delete;
+        Server(const Server&) = delete;
 
-    Server(const Server&&) = delete;
+        Server(const Server&&) = delete;
 
-    Server& operator=(const Server&) = delete;
+        Server& operator=(const Server&) = delete;
 
-    Server& operator=(const Server&&) = delete;
+        Server& operator=(const Server&&) = delete;
 
-    virtual ~Server();
+        virtual ~Server();
 
-    void run();
+        void run();
 
-    static void signalCb(ev::sig& signal, int revents);
+        static void signalCb(ev::sig& signal, int revents);
 
-private:
-    ev::default_loop loop;
-    ev::io watcher;
-    ev::sig signalSIGINT;
+    private:
+        idk::server::Config cfg;
 
-    WorkerPool _workerPool;
+        ev::default_loop loop;
+        ev::io watcher;
+        ev::sig signalSIGINT;
 
-    int socketFD;
+        idk::pool::WorkerPool _workerPool;
 
-    void acceptCb(ev::io& watcher, int revents);
-};
+        int socketFD;
 
+        void acceptCb(ev::io& watcher, int revents);
+    };
+}
 
 #endif //IDK_SERVER_HPP

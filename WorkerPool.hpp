@@ -5,31 +5,31 @@
 #include "Worker.hpp"
 #include <vector>
 
-class WorkerPool {
-public:
-    explicit WorkerPool(unsigned long workersAmount);
+namespace idk::pool {
+    class WorkerPool {
+    public:
+        explicit WorkerPool(unsigned long workersAmount);
 
-    virtual ~WorkerPool();
+        virtual ~WorkerPool();
 
-    explicit WorkerPool() = delete;
+        explicit WorkerPool() = delete;
 
-    WorkerPool(const WorkerPool&) = delete;
+        WorkerPool(const WorkerPool&) = delete;
 
-    WorkerPool(const WorkerPool&&) = delete;
+        WorkerPool(const WorkerPool&&) = delete;
 
-    WorkerPool& operator=(const WorkerPool&) = delete;
+        WorkerPool& operator=(const WorkerPool&) = delete;
 
-    WorkerPool& operator=(const WorkerPool&&) = delete;
+        WorkerPool& operator=(const WorkerPool&&) = delete;
 
-    void addConnection(int clientSocketFD);
+        void addConnection(int clientSocketFD);
 
-    void run();
+        void run();
 
-private:
-    std::vector<Worker> _workers;
-    size_t _workersAmount;
-    size_t _balancer = 0;
-};
-
+    private:
+        std::vector<Worker> _workers;
+        size_t _workersAmount;
+    };
+}
 
 #endif //IDK_WORKERPOOL_HPP
