@@ -11,8 +11,6 @@ namespace idk::instances {
 
         ConnectionInstance(ev::dynamic_loop& loop, int socketFD, ev::async& destroyNotifier);
 
-//    ConnectionInstance(ev::default_loop& loop, int socketFD);
-
         virtual ~ConnectionInstance();
 
     private:

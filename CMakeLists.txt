@@ -6,11 +6,11 @@ set(CMAKE_CXX_FLAGS "-O2 -Wall -Werror -Wextra")
 
 add_executable(idk
         main.cpp
-        utils.hpp utils.cpp
-        Server.cpp Server.hpp
-        WorkerPool.cpp WorkerPool.hpp
-        Worker.cpp Worker.hpp
-        ConnectionInstance.cpp ConnectionInstance.hpp
-        Config.cpp Config.hpp)
+        utils/utils.hpp utils/utils.cpp
+        Server/Server.cpp Server/Server.hpp
+        Pool/WorkerPool.cpp Pool/WorkerPool.hpp
+        Pool/Worker.cpp Pool/Worker.hpp
+        Server/ConnectionInstance.cpp Server/ConnectionInstance.hpp
+        Server/Config.cpp Server/Config.hpp)
 
 target_link_libraries(idk ev)

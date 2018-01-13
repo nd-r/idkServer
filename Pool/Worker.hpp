@@ -11,9 +11,9 @@ namespace idk::pool {
     public:
         explicit Worker();
 
-        explicit Worker(const Worker&) = delete;
+        Worker(const Worker&) = delete;
 
-        explicit Worker(const Worker&&) = delete;
+        Worker(const Worker&&) = delete;
 
         Worker& operator=(const Worker&) = delete;
 

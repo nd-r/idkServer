@@ -11,10 +11,10 @@ namespace idk::pool {
     }
 
     void WorkerPool::addConnection(int clientSocketFD) {
-        size_t minConnections = SIZE_T_MAX;
+        size_t minConnections = _workers[0].currentConnections();
         unsigned long workerIdx = 0;
 
-        for (unsigned long i = 0; i < _workersAmount; ++i) {
+        for (unsigned long i = 1; i < _workersAmount; ++i) {
             auto workerConns = _workers[i].currentConnections();
             if (minConnections > workerConns) {
                 minConnections = workerConns;

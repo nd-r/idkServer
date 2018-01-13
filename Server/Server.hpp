@@ -2,7 +2,7 @@
 #define IDK_SERVER_HPP
 
 #include "Config.hpp"
-#include "WorkerPool.hpp"
+#include "../Pool/WorkerPool.hpp"
 #include <ev++.h>
 
 namespace idk {

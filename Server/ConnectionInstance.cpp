@@ -1,7 +1,7 @@
 #include "ConnectionInstance.hpp"
 #include <unistd.h>
 
-#define bufferSize 1024
+#define bufferSize 4096
 
 namespace idk::instances {
     ConnectionInstance::ConnectionInstance(ev::dynamic_loop& loop, int socketFD, ev::async& destroyNotifier)
@@ -34,17 +34,10 @@ namespace idk::instances {
     void ConnectionInstance::readCB(ev::io& watcher) {
         char buffer[bufferSize];
 
-        volatile int i = 1;
-
-        for (int j = 0; j < 380000; j++) {
-            ++i;
-            i = i << 2 >> 2;
-        }
-
         ssize_t nRead = read(watcher.fd, buffer, bufferSize);
 
         if (nRead > 0) {
-            write(watcher.fd, "HTTP/1.1 200 OK\r\nContent-length: 0\r\n\r\n", 38);
+            write(watcher.fd, buffer, static_cast<size_t>(nRead));
         } else if (nRead == 0) {
             delete this;
         } else {

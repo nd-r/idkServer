@@ -1,6 +1,6 @@
 #include "Worker.hpp"
-#include "ConnectionInstance.hpp"
-#include "utils.hpp"
+#include "../Server/ConnectionInstance.hpp"
+#include "../utils/utils.hpp"
 
 using idk::instances::ConnectionInstance;
 
